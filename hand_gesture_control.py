@@ -1,7 +1,6 @@
 import cv2
 import mediapipe as mp
 import pyautogui
-import random
 import util
 from pynput.mouse import Button, Controller
 mouse = Controller()
@@ -36,16 +35,14 @@ def move_mouse(index_finger_tip):
 
 def is_left_click(landmark_list, thumb_index_dist):
     return (
-            # util.get_angle(landmark_list[5], landmark_list[6], landmark_list[8]) < 50 and
-            # util.get_angle(landmark_list[9], landmark_list[10], landmark_list[12]) > 90 and
-            thumb_index_dist <50
+            thumb_index_dist < 40
     )
 
 
 def is_right_click(landmark_list, thumb_index_dist):
     return (
             util.get_angle(landmark_list[9], landmark_list[10], landmark_list[12]) < 50 and
-            util.get_angle(landmark_list[5], landmark_list[6], landmark_list[8]) > 90  and
+            util.get_angle(landmark_list[5], landmark_list[6], landmark_list[8]) > 90 and
             thumb_index_dist > 50
     )
 
@@ -55,14 +52,6 @@ def is_double_click(landmark_list, thumb_index_dist):
             util.get_angle(landmark_list[5], landmark_list[6], landmark_list[8]) < 50 and
             util.get_angle(landmark_list[9], landmark_list[10], landmark_list[12]) < 50 and
             thumb_index_dist > 50
-    )
-
-
-def is_screenshot(landmark_list, thumb_index_dist):
-    return (
-            util.get_angle(landmark_list[5], landmark_list[6], landmark_list[8]) < 50 and
-            util.get_angle(landmark_list[9], landmark_list[10], landmark_list[12]) < 50 and
-            thumb_index_dist < 50
     )
 
 
@@ -83,11 +72,6 @@ def detect_gesture(frame, landmark_list, processed):
         elif is_double_click(landmark_list, thumb_index_dist):
             pyautogui.doubleClick()
             cv2.putText(frame, "Double Click", (50, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 0), 2)
-        elif is_screenshot(landmark_list, thumb_index_dist):
-            im1 = pyautogui.screenshot()
-            label = random.randint(1, 1000)
-            im1.save(f'my_screenshot_{label}.png')
-            cv2.putText(frame, "Screenshot Taken", (50, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 0), 2)
         else:
             move_mouse(index_finger_tip)
         
@@ -134,7 +118,6 @@ def main():
 
 if __name__ == '__main__':
     main()
-
 
 
 

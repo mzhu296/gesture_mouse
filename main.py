@@ -103,6 +103,7 @@ def main():
     draw = mp.solutions.drawing_utils
     cap = cv2.VideoCapture(0)
 
+    window_width, window_height = 800, 600
     try:
         while cap.isOpened():
             ret, frame = cap.read()
@@ -112,6 +113,8 @@ def main():
             frameRGB = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
             processed = hands.process(frameRGB)
 
+            frame = cv2.resize(frame, (window_width, window_height))
+            
             landmark_list = []
             if processed.multi_hand_landmarks:
                 hand_landmarks = processed.multi_hand_landmarks[0]  # Assuming only one hand is detected

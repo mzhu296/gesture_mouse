@@ -58,6 +58,11 @@ Make sure your webcam is connected and working, as the program will capture hand
 
 To exit the program, press `q` on your keyboard.
 
+YouTube Demo
+
+Watch the project in action by clicking on the link below:
+https://www.youtube.com/watch?v=nN0gGC3r_9M
+
 ## Code Structure
 
 - `main()`: The main loop that captures frames from the webcam and processes them for hand tracking and gesture detection.

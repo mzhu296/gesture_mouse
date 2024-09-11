@@ -36,9 +36,9 @@ def move_mouse(index_finger_tip):
 
 def is_left_click(landmark_list, thumb_index_dist):
     return (
-            util.get_angle(landmark_list[5], landmark_list[6], landmark_list[8]) < 50 and
-            util.get_angle(landmark_list[9], landmark_list[10], landmark_list[12]) > 90 and
-            thumb_index_dist > 50
+            # util.get_angle(landmark_list[5], landmark_list[6], landmark_list[8]) < 50 and
+            # util.get_angle(landmark_list[9], landmark_list[10], landmark_list[12]) > 90 and
+            thumb_index_dist <50
     )
 
 
@@ -97,6 +97,7 @@ def detect_gesture(frame, landmark_list, processed):
                 h, w, _ = frame.shape
                 cx, cy = int(lm.x * w), int(lm.y * h)
                 cv2.circle(frame, (cx, cy), 5, (0, 255, 0), cv2.FILLED)
+
 
 def main():
     draw = mp.solutions.drawing_utils
